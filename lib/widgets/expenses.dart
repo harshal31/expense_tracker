@@ -1,3 +1,4 @@
+import 'package:first_expense_tracker/utility_widgets/either.dart';
 import 'package:first_expense_tracker/widgets/charts/chart.dart';
 import 'package:first_expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,6 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     Widget mainContent = const Center(
       child: Text(
         "No expenses found. Start adding some!",
@@ -94,33 +94,34 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: width < 600
-          ? Column(
-              children: [
-                Chart(expenses: _expenses),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: mainContent,
-                ),
-              ],
-            )
-          : Row(
-              children: [
-                Expanded(
-                  child: Chart(
-                    expenses: _expenses,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: mainContent,
-                ),
-              ],
+      body: Either(
+        first: Column(
+          children: [
+            Chart(expenses: _expenses),
+            const SizedBox(
+              height: 10,
             ),
+            Expanded(
+              child: mainContent,
+            ),
+          ],
+        ),
+        second: Row(
+          children: [
+            Expanded(
+              child: Chart(
+                expenses: _expenses,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: mainContent,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
