@@ -40,9 +40,10 @@ class Chart extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
         ),
         width: double.infinity,
-        height:
-            expenses.isEmpty ? 0 : (MediaQuery.of(context).size.height / 3.8),
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        height: expenses.isEmpty
+            ? 0
+            : (MediaQuery.of(context).size.longestSide / 3.8),
+        margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         child: Column(
           children: [
             Expanded(

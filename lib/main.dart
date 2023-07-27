@@ -24,7 +24,7 @@ class _MyApp extends StatelessWidget {
             foregroundColor: kDarkColorScheme.onPrimaryContainer,
           ),
           cardTheme: const CardTheme().copyWith(
-            margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+            margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 14.0),
             elevation: 6.0,
           ),
           outlinedButtonTheme: OutlinedButtonThemeData(
@@ -53,7 +53,7 @@ class _MyApp extends StatelessWidget {
           foregroundColor: kColorScheme.onPrimaryContainer,
         ),
         cardTheme: const CardTheme().copyWith(
-          margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+          margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 14.0),
           elevation: 6.0,
         ),
         textTheme:
