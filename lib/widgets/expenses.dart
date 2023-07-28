@@ -28,8 +28,8 @@ class _ExpensesState extends State<Expenses> {
 
   _openAddExpenseOverlay() {
     showModalBottomSheet(
+      useSafeArea: true,
       isScrollControlled: true,
-      elevation: 10,
       context: context,
       builder: (ctx) => NewExpense(_addExpense),
     );
@@ -79,6 +79,7 @@ class _ExpensesState extends State<Expenses> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         title: Text(
           "Flutter Expense Tracker",
           style: Theme.of(context)

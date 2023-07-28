@@ -111,164 +111,172 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+    final keyboardSize = MediaQuery.of(context).viewInsets.bottom;
+    return SizedBox.expand(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + keyboardSize),
+          child: Column(
             children: [
-              IconButton(
-                icon: const Icon(Icons.close_outlined),
-                iconSize: 35.0,
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-          TextField(
-            controller: _titleController,
-            maxLength: 50,
-            textAlignVertical: TextAlignVertical.center,
-            textInputAction: TextInputAction.next,
-            onSubmitted: (term) =>
-                _fieldFocusChange(context, _titleFocus, _amountFocus),
-            decoration: InputDecoration(
-                alignLabelWithHint: true,
-                errorText: _titleError,
-                label: Text(
-                  "Title",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                suffix: IconButton(
-                  icon: Icon(_titleClearIcon),
-                  onPressed: () => _titleController.clear(),
-                )),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: __amountController,
-                  textAlignVertical: TextAlignVertical.center,
-                  focusNode: _amountFocus,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                      alignLabelWithHint: true,
-                      errorText: _amountError,
-                      prefix: Text(
-                        "₹ ",
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
-                      label: Text(
-                        "Amount",
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
-                      suffix: IconButton(
-                        icon: Icon(_amountClearIcon),
-                        onPressed: () => __amountController.clear(),
-                      )),
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: _showDatePickerDialog,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          _selectedDate != null
-                              ? DateFormat.yMd().format(_selectedDate!)
-                              : "No Selected Date",
-                          textAlign: TextAlign.end,
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                      ),
-                      const SizedBox(width: 4,),
-                      const Icon(Icons.calendar_month_outlined),
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.close_outlined),
+                    iconSize: 35.0,
+                    onPressed: () => Navigator.pop(context),
                   ),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 16.0),
-          const SizedBox(height: 16.0),
-          Row(
-            children: [
-              DropdownButton(
-                icon: const Icon(Icons.arrow_circle_down_outlined),
-                value: _selectedCategory,
-                hint: dropDownItem(context, Icons.select_all, "Category"),
-                items: Category.values
-                    .map(
-                      (e) => DropdownMenuItem(
-                        value: e,
-                        child: dropDownItem(context, categoryIcons[e], e.name),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (str) {
-                  if (str == null) {
-                    return;
-                  }
-                  setState(() {
-                    _selectedCategory = str;
-                  });
-                },
+                ],
               ),
-              const SizedBox(
-                width: 5.0,
+              TextField(
+                controller: _titleController,
+                maxLength: 50,
+                textAlignVertical: TextAlignVertical.center,
+                textInputAction: TextInputAction.next,
+                onSubmitted: (term) =>
+                    _fieldFocusChange(context, _titleFocus, _amountFocus),
+                decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    errorText: _titleError,
+                    label: Text(
+                      "Title",
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    suffix: IconButton(
+                      icon: Icon(_titleClearIcon),
+                      onPressed: () => _titleController.clear(),
+                    )),
               ),
-              Expanded(
-                child: Row(
-                  children: [
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(
-                          width: 2,
-                          color: Colors.red.withOpacity(0.5),
-                        ),
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(
-                        "Cancel",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: __amountController,
+                      textAlignVertical: TextAlignVertical.center,
+                      focusNode: _amountFocus,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                          alignLabelWithHint: true,
+                          errorText: _amountError,
+                          prefix: Text(
+                            "₹ ",
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          label: Text(
+                            "Amount",
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          suffix: IconButton(
+                            icon: Icon(_amountClearIcon),
+                            onPressed: () => __amountController.clear(),
+                          )),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: _showDatePickerDialog,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              _selectedDate != null
+                                  ? DateFormat.yMd().format(_selectedDate!)
+                                  : "No Selected Date",
+                              textAlign: TextAlign.end,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          const Icon(Icons.calendar_month_outlined),
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: _saveExpense,
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            width: 2,
-                            color: Colors.green.withOpacity(0.5),
+                  )
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
+              Row(
+                children: [
+                  DropdownButton(
+                    icon: const Icon(Icons.arrow_circle_down_outlined),
+                    value: _selectedCategory,
+                    hint: dropDownItem(context, Icons.select_all, "Category"),
+                    items: Category.values
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child:
+                                dropDownItem(context, categoryIcons[e], e.name),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (str) {
+                      if (str == null) {
+                        return;
+                      }
+                      setState(() {
+                        _selectedCategory = str;
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(
+                              width: 2,
+                              color: Colors.red.withOpacity(0.5),
+                            ),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(
+                            "Cancel",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ),
-                        child: Text(
-                          "Save Expense",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleSmall,
+                        const SizedBox(
+                          width: 5,
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: _saveExpense,
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(
+                                width: 2,
+                                color: Colors.green.withOpacity(0.5),
+                              ),
+                            ),
+                            child: Text(
+                              "Save Expense",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
