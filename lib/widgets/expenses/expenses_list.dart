@@ -38,12 +38,16 @@ class _ExpenseState extends State<ExpensesList> {
             borderRadius: BorderRadius.circular(15),
             color: backgroundColor,
           ),
-          child: AnimatedOpacity(
-            opacity: _isReached ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 300),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Icon(Icons.delete_outline),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (Widget child, Animation<double> animation) =>
+                  ScaleTransition(scale: animation, child: child),
+              child: Icon(
+                _isReached ? Icons.delete_outline : Icons.save_alt_outlined,
+                key: ValueKey(_isReached),
+              ),
             ),
           ),
         ),
